@@ -1,26 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<Cards/>
+<h2 class="hello"> hello, {{ name }}</h2>
+
+ <div class="container">
+  <button @click="flag=!flag">click</button>
+  <h2 v-if="flag">Hello</h2>
+  <h2 v-else>Bye bye</h2>
+ </div>
+
+ <div class="contaoner-2">
+  <button @click="count++">Click+1</button>
+  <H2>{{ count }}</H2>
+ </div>
+
+ <div class="container-3">
+  <input type="text" v-model="text">
+  <p> {{ text }}</p>
+ </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Cards from "@/components/Cards"
+import{defineComponent, ref} from "vue";
 
-export default {
+export default defineComponent( {
   name: 'App',
   components: {
-    HelloWorld
+    Cards
+  },
+  setup(){
+    const name = "Yuriy"
+    const flag = ref(true)
+    const count = ref(0)
+    const text = ref("")
+    return { name,
+             flag,
+             count,
+             text
+    }
   }
-}
+})
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.hello{
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
