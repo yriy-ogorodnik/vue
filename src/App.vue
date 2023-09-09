@@ -1,49 +1,65 @@
 <template>
-<Cards/>
-<h2 class="hello"> hello, {{ name }}</h2>
+<div class="form-conteiner">
+  <h2>Messege {{ message }}</h2>
+  <form @submit.prevent="submitForm">
+     <label for="name">Name</label>
+     <input type="text" id="name" v-model="name">
+     <label for="email">Email</label>
+     <input type="email" id="email" v-model="email">
+     <button type="submit">Submit</button>
+  </form>
 
- <div class="container">
-  <button @click="flag=!flag">click</button>
-  <h2 v-if="flag">Hello</h2>
-  <h2 v-else>Bye bye</h2>
- </div>
-
- <div class="contaoner-2">
-  <button @click="count++">Click+1</button>
-  <H2>{{ count }}</H2>
- </div>
-
- <div class="container-3">
-  <input type="text" v-model="text">
-  <p> {{ text }}</p>
- </div>
+  <ul v-if="submissions.length > 0">
+  <li v-for="(submissions, index) in submissions" :key="index">
+  <p>Name:{{ submissions.name }}</p>
+  <p>Email:{{ submissions.email }}</p>
+  </li>
+  </ul>
+</div>
 </template>
 
 <script>
-import Cards from "@/components/Cards"
-import{defineComponent, ref} from "vue";
 
-export default defineComponent( {
-  name: 'App',
-  components: {
-    Cards
+
+
+export default  {
+  data(){
+return{
+  name:'',
+  email:'',
+  submissions:[]
+};
+},
+methods:{
+  submitForm(){
+    const newSubmissons = {
+      name: this.name,
+      email: this.email,
+    }
+    this.submissions.push(newSubmissons)
+    this.name = ''
+    this.email = ''
   },
-  setup(){
-    const name = "Yuriy"
-    const flag = ref(true)
-    const count = ref(0)
-    const text = ref("")
-    return { name,
-             flag,
-             count,
-             text
+  showMessage(){
+    alert("hello")
+  }
+},
+computed:{
+  message(){
+    const count = this.submissions.length;
+    if (count=== 0 ){
+      return "No submissions Yet"
+    } else if (count === 1){
+      return " 1 Submissions!"
+    } else {
+      return `${count} Submissions`
     }
   }
-})
+}
+
+}
 </script>
 
 <style>
-.hello{
-  text-align: center;
-}
+
 </style>
