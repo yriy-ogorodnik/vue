@@ -4,8 +4,10 @@
   <form @submit.prevent="submitForm">
      <label for="name">Name</label>
      <input type="text" id="name" v-model="name">
+     <br>
      <label for="email">Email</label>
      <input type="email" id="email" v-model="email">
+     <br>
      <button type="submit">Submit</button>
   </form>
 
@@ -13,6 +15,7 @@
   <li v-for="(submissions, index) in submissions" :key="index">
   <p>Name:{{ submissions.name }}</p>
   <p>Email:{{ submissions.email }}</p>
+  <button @click="deleteSubmission(index)"> Delete</button>
   </li>
   </ul>
 </div>
@@ -39,6 +42,9 @@ methods:{
     this.submissions.push(newSubmissons)
     this.name = ''
     this.email = ''
+  },
+  deleteSubmission(index){
+    this.submissions.splice(index,1)
   },
   showMessage(){
     alert("hello")
